@@ -20,6 +20,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Suppress ResizeObserver loop errors
+              window.addEventListener('error', function(e) {
+                if (e.message === 'ResizeObserver loop completed with undelivered notifications.' || 
+                    e.message === 'ResizeObserver loop limit exceeded') {
+                  e.stopImmediatePropagation();
+                  e.preventDefault();
+                  return false;
+                }
+              });
+            `,
+          }}
+        />
         {children}
         <Suspense fallback={null}>
           <Analytics />
